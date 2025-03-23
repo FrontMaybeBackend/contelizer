@@ -39,40 +39,4 @@ class UserController extends AbstractController
         return new JsonResponse($users);
     }
 
-    /**
-     * @Route("/users/{id}", name="user_edit", methods={"GET"})
-     */
-    public function edit(int $id): Response
-    {
-        $user = $this->apiService->getUser($id);
-
-        if (!$user) {
-            throw $this->createNotFoundException('Użytkownik nie został znaleziony');
-        }
-
-        return $this->render('user/edit.html.twig', [
-            'user' => $user
-        ]);
-    }
-
-    /**
-     * @Route("/api/users/{id}", name="api_user_update", methods={"PUT"})
-     */
-    public function updateUser(Request $request, int $id): JsonResponse
-    {
-        $data = json_decode($request->getContent(), true);
-
-        // Walidacja danych
-        if (!isset($data['name']) || !isset($data['email']) || !isset($data['gender']) || !isset($data['status'])) {
-            return new JsonResponse(['error' => 'Brakujące dane'], Response::HTTP_BAD_REQUEST);
-        }
-
-        $result = $this->apiService->updateUser($id, $data);
-
-        if (isset($result['error'])) {
-            return new JsonResponse($result, Response::HTTP_BAD_REQUEST);
-        }
-
-        return new JsonResponse($result);
-    }
 }

@@ -68,6 +68,5 @@ $(document).ready(function() {
         loadPosts(currentPage + 1, userId);
     });
 
-    // Załaduj posty przy starcie
     loadPosts(currentPage, userId);
 });

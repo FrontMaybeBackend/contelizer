@@ -75,24 +75,4 @@ class PostController extends AbstractController
         return new JsonResponse($result);
     }
 
-    /**
-     * @Route("/api/posts", name="api_post_create", methods={"POST"})
-     */
-    public function createPost(Request $request): JsonResponse
-    {
-        $data = json_decode($request->getContent(), true);
-
-        // Walidacja danych
-        if (!isset($data['title']) || !isset($data['body']) || !isset($data['user_id'])) {
-            return new JsonResponse(['error' => 'Brakujące dane'], Response::HTTP_BAD_REQUEST);
-        }
-
-        $result = $this->apiService->createPost($data);
-
-        if (isset($result['error'])) {
-            return new JsonResponse($result, Response::HTTP_BAD_REQUEST);
-        }
-
-        return new JsonResponse($result, Response::HTTP_CREATED);
-    }
 }

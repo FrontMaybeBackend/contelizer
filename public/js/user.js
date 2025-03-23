@@ -37,7 +37,6 @@ $(document).ready(function() {
             <p>Email: ${user.email}</p>
             <p>Płeć: ${user.gender}</p>
             <p>Status: ${user.status}</p>
-            <a href="/users/${user.id}" class="btn btn-primary btn-sm">Edytuj</a>
             <a href="/posts?user_id=${user.id}" class="btn btn-info btn-sm">Posty</a>
         </div>
     `);
