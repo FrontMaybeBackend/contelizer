@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lista postów{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .search-container {
+            margin-bottom: 20px;
+        }
+        .post-card {
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .pagination {
+            margin-top: 20px;
+        }
+        .post-body {
+            margin-top: 10px;
+            white-space: pre-line;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Lista postów</h1>
+
+        <div class="search-container">
+            <div class="input-group">
+                <input type="text" id="user-id-input" class="form-control" placeholder="ID użytkownika...">
+                <div class="input-group-append">
+                    <button id="filter-button" class="btn btn-primary">Filtruj</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="posts-container"></div>
+
+        <div class="pagination">
+            <button id="prev-page" class="btn btn-secondary">Poprzednia strona</button>
+            <span id="page-info" class="mx-3">Strona 1</span>
+            <button id="next-page" class="btn btn-secondary">Następna strona</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('js/post.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,2 @@
+To jest jakiś tam przykładowy tekst, który zostanie przetworzony przez komendę.
+Każdy wyraz w tym tekście będzie miał zmieniony szyk liter, z wyjątkiem pierwszej i ostatniej litery tak jak w wymaganiach :)

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edycja posta{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Edycja posta</h1>
+
+        <div id="alert-container"></div>
+
+        <form id="edit-post-form">
+            <div class="form-group">
+                <label for="title">Tytuł</label>
+                <input type="text" id="title" class="form-control" value="{{ post.title }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="body">Treść</label>
+                <textarea id="body" class="form-control" rows="10" required>{{ post.body }}</textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+            <a href="{{ path('post_index') }}" class="btn btn-secondary">Powrót</a>
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#edit-post-form').on('submit', function(e) {
+                e.preventDefault();
+
+                const postId = {{ post.id }};
+                const postData = {
+                    title: $('#title').val(),
+                    body: $('#body').val()
+                };
+
+                $.ajax({
+                    url: '/api/posts/' + postId,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(postData),
+                    success: function(response) {
+                        $('#alert-container').html(
+                            '<div class="alert alert-success">Post został zaktualizowany pomyślnie.</div>'
+                        );
+                    },
+                    error: function(xhr) {
+                        const response = JSON.parse(xhr.responseText);
+                        $('#alert-container').html(
+                            '<div class="alert alert-danger">Błąd: ' + (response.error || 'Nie udało się zaktualizować posta') + '</div>'
+                        );
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
