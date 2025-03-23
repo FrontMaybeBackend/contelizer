@@ -42,23 +42,6 @@ class GoRestApiService
         }
     }
 
-    public function updateUser(int $id, array $data): array
-    {
-        try {
-            $response = $this->httpClient->request('PUT', "{$this->apiUrl}/users/{$id}", [
-                'headers' => [
-                    'Authorization' => "Bearer {$this->apiToken}",
-                    'Content-Type' => 'application/json'
-                ],
-                'json' => $data
-            ]);
-
-            return $response->toArray();
-        } catch (\Exception $e) {
-            return ['error' => $e->getMessage()];
-        }
-    }
-
     public function getPosts(int $userId = null, int $page = 1): array
     {
         $query = ['page' => $page];
